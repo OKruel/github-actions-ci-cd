@@ -14,7 +14,7 @@ jobs:
       - name: Installing dependencies
         run: yarn preci && yarn ci
       - name: Checking prettier formating
-        run: yarn prettier-format-check
+        run: yarn prettier:check
       - name: Running tests with coverage
         run: yarn test -- --coverage
         env:
