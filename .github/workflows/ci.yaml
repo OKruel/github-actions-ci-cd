@@ -76,7 +76,7 @@ jobs:
       # Step to generate a release based on the semantic-release library
       # https://github.com/semantic-release/semantic-release
       - name: Create a Release
-        if: github.event_name == 'push' && github.ref == 'refs/head/master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
