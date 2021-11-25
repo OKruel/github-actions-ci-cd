@@ -10,25 +10,55 @@ jobs:
   Continuos_Integration:
     runs-on: ubuntu-latest
     steps:
+      # Copy the repo into the VM
       - uses: actions/checkout@v2.4.0
+      # Cache the yarn node_modules. Github example below
+      # https://github.com/actions/cache/blob/main/examples.md#node---yarn
+      - name: Get yarn cache directory
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # Caching
+      - uses: actions/cache@v2
+        with:
+          # path retrieve with the command in the previous step
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          # This key must be the same for the CACHE to be used. This key can be static or dinamic
+          # We set the key to be dinamic by used variables and functions.
+          # This key is a string composed by:
+          # 1 - os name (variable runner.os) 2 - the yarn word 3 - hash value (notice the hash function) of the yarn-lock file.
+          # If the operating system or the yarn-lock file changes (means our dependencies has changed),
+          # then the cache will not be used and the dependencies will be resinstalled.
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+          # This is used for the key to be reconstructed with the same pattern but with the new yarn-lock file hashed.
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      # Choosing Node Js version
       - name: Set up Node JS
         uses: actions/setup-node@v2.4.1
         with:
           node-version: "12.x"
+      # Instaling dependencies
       - name: Installing dependencies
         run: yarn preci && yarn ci
+      # Format check for the correct code formating with Prettier
       - name: Checking prettier formating
         run: yarn prettier:check
+      # Running the tests
       - name: Running tests with coverage
         run: yarn test -- --coverage
+        # Set the this variables makes the tests run only once instead of hanging in watch mode
         env:
           CI: true
+      # Build only if we pull request was approved and push to the branch
       - name: Build the Project
         if: ${{ github.event_name == 'push' }}
         run: yarn build
+      # Deploy to the staging server with SURGE
       - name: Deploy the Staging
         if: ${{ github.event_name == 'push' }}
         run: npx surge --project ./build --domain dry-rake.surge.sh
+        # Making login in SURGE
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
