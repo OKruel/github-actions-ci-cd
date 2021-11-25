@@ -1,0 +1,21 @@
+name: Continuos Integration
+on:
+  pull_request:
+    branches: [develop]
+jobs:
+  Continuos_Integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: Set up Node JS
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: "12.x"
+      - name: Installing dependencies
+        run: yarn preci && yarn ci
+      - name: Checking prettier formating
+        run: yarn prettier:check
+      - name: Running tests with coverage
+        run: yarn test -- --coverage
+        env:
+          CI: true
