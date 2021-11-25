@@ -1,11 +1,11 @@
 name: Continuos Integration
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
   # When a pull resquest is approved it will generate a pull request
   # The "feature" branch will be pushed into development hence the push event in the develop branch
   push:
-    branches: [develop]
+    branches: [develop, master]
 jobs:
   Continuos_Integration:
     runs-on: ubuntu-latest
@@ -73,6 +73,13 @@ jobs:
           # If our test are successfully the coverage folder will be created.
           # If we do not know where the folder is we would have to find it with linux commands before
           path: build
+      # Step to generate a release based on the semantic-release library
+      # https://github.com/semantic-release/semantic-release
+      - name: Create a Release
+        if: github.event_name == 'push' && github.ref == 'refs/head/master'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Deploy to the staging server with SURGE
       - name: Deploy the Staging
         if: ${{ github.event_name == 'push' }}
