@@ -1,4 +1,4 @@
 * @OKruel
 *.js @OKruelNL
-*.yaml @OKruel
+*.yaml @OKruelNL
 /public/ @OKruelNL
