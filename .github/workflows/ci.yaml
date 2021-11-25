@@ -50,10 +50,29 @@ jobs:
         # Set the this variables makes the tests run only once instead of hanging in watch mode
         env:
           CI: true
+      # ARTIFACT CODE COVERAGE Find and Upload the artifact
+      - name: Upload Artifact test coverage
+        uses: actions/upload-artifact@v2
+        with:
+          # Name that will be displayed for download
+          name: code-coverage
+          # If our test are successfully the coverage folder will be created.
+          # If we do not know where the folder is we would have to find it with linux commands before
+          path: coverage
       # Build only if we pull request was approved and push to the branch
       - name: Build the Project
         if: ${{ github.event_name == 'push' }}
         run: yarn build
+      # ARTIFACT BUILD
+      - name: Upload Artifact BUILD
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
+        with:
+          # Name that will be displayed for download
+          name: code-build
+          # If our test are successfully the coverage folder will be created.
+          # If we do not know where the folder is we would have to find it with linux commands before
+          path: build
       # Deploy to the staging server with SURGE
       - name: Deploy the Staging
         if: ${{ github.event_name == 'push' }}
