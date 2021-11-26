@@ -27,6 +27,11 @@
       "react-app/jest"
     ]
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -40,6 +45,9 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "husky": "4",
     "prettier": "2.4.1",
     "semantic-release": "^18.0.1"
   }
