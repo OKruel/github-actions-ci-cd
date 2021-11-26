@@ -22,6 +22,7 @@ module.exports = {
       // This MUST be a file, MUST NOT be a folder
       {
         assets: [
+          // This files in the path must be ziped in the workflow.
           { path: "build.zip", label: "Build" },
           { path: "coverage.zip", label: "Coverage" },
         ],
