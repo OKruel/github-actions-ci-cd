@@ -75,7 +75,7 @@ jobs:
           # If we do not know where the folder is we would have to find it with linux commands before
           path: build
       #! Ziping the Assets/Artifacts to upload them to the github release
-      - name: ZIP ASSETS/ARTIFACTS
+      - name: Zip the assets/artifacts
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
           zip -r build.zip ./build
@@ -87,10 +87,18 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #! Deploy to the staging server with SURGE
-      - name: Deploy the Staging
-        if: ${{ github.event_name == 'push' }}
+      #! DEPLOY TO STAGE SERVER WITH SURGE
+      - name: Deploy to stage server using SURGE
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain dry-rake.surge.sh
+        # Making login in SURGE
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      #! DEPLOY TO PRODUCTION SERVER WITH SURGE
+      - name: Deploy to production server using SURGE
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx surge --project ./build --domain production.surge.sh
         # Making login in SURGE
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
