@@ -10,14 +10,14 @@ jobs:
   Continuos_Integration:
     runs-on: ubuntu-latest
     steps:
-      # Copy the repo into the VM
+      #! Copy the repo into the VM
       - uses: actions/checkout@v2.4.0
-      # Cache the yarn node_modules. Github example below
+      #! Cache the yarn node_modules. Github example below
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get yarn cache directory
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      # Caching
+      #! Caching
       - uses: actions/cache@v2
         with:
           # path retrieve with the command in the previous step
@@ -33,24 +33,24 @@ jobs:
           # This is used for the key to be reconstructed with the same pattern but with the new yarn-lock file hashed.
           restore-keys: |
             ${{ runner.os }}-yarn-
-      # Choosing Node Js version
+      #! Choosing Node Js version
       - name: Set up Node JS
         uses: actions/setup-node@v2.4.1
         with:
           node-version: "14.18"
-      # Instaling dependencies
+      #! Instaling dependencies
       - name: Installing dependencies
         run: yarn preci && yarn ci
-      # Format check for the correct code formating with Prettier
+      #! Format check for the correct code formating with Prettier
       - name: Checking prettier formating
         run: yarn prettier:check
-      # Running the tests
+      #! Running the tests
       - name: Running tests with coverage
         run: yarn test -- --coverage
         # Set the this variables makes the tests run only once instead of hanging in watch mode
         env:
           CI: true
-      # ARTIFACT CODE COVERAGE Find and Upload the artifact
+      #! ARTIFACT CODE COVERAGE Find and Upload the artifact
       - name: Upload Artifact test coverage
         uses: actions/upload-artifact@v2
         with:
@@ -63,7 +63,7 @@ jobs:
       - name: Build the Project
         if: ${{ github.event_name == 'push' }}
         run: yarn build
-      # ARTIFACT BUILD
+      #! ARTIFACT BUILD
       - name: Upload Artifact BUILD
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
@@ -73,14 +73,20 @@ jobs:
           # If our test are successfully the coverage folder will be created.
           # If we do not know where the folder is we would have to find it with linux commands before
           path: build
-      # Step to generate a release based on the semantic-release library
+      #! Ziping the Assets/Artifacts to upload them to the github release
+      - name: ZIP ASSETS/ARTIFACTS
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          zip -r build.zip ./build
+          zip -r converage.zip ./coverage
+      #! Step to generate a release based on the semantic-release library
       # https://github.com/semantic-release/semantic-release
       - name: Create a Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # Deploy to the staging server with SURGE
+      #! Deploy to the staging server with SURGE
       - name: Deploy the Staging
         if: ${{ github.event_name == 'push' }}
         run: npx surge --project ./build --domain dry-rake.surge.sh
