@@ -7,5 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send slack msg
+        #! Atention to the syntax to add an url to a link
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{"text":"New release ${{ github.event.release.tag_name }} is out. <${{ github.event.release.html_url }}| Check it out here.>" }' ${{ secrets.SLACK_WEBHOOK }}
