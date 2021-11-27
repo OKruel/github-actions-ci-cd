@@ -80,13 +80,19 @@ jobs:
         run: |
           zip -r build.zip ./build
           zip -r coverage.zip ./coverage
-      #! Step to generate a release based on the semantic-release library
+      #! RELEASE Step to generate a release based on the semantic-release library
       # https://github.com/semantic-release/semantic-release
       - name: Create a Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This is a default token created by Github to allow the native github action application to have access.
+          # Using this token means that github actions app is making the release, and it does not trigger the github.event.release.
+          # To trigger the event a token from an user must be used.
+          #? GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Here I use my user token telling that my user have released the app.
+          # With a github user token the github.event.release is created
+          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
       #! DEPLOY TO STAGE SERVER WITH SURGE
       - name: Deploy to stage server using SURGE
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
@@ -103,3 +109,12 @@ jobs:
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      #! SEND A SLACK MESSAGE IF WORKFLOW FAILS
+      - name: Send a slack message
+        # Tha image in Docker Hub contains the instructions to set the environment variables.
+        uses: docker://technosophos/slack-notify
+        env:
+          #! This requires that an app is created in the slack api.
+
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "Hello Slack, sending from my github actions workflow"
