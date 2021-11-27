@@ -109,12 +109,3 @@ jobs:
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-      #! SEND A SLACK MESSAGE IF WORKFLOW FAILS
-      - name: Send a slack message
-        # Tha image in Docker Hub contains the instructions to set the environment variables.
-        uses: docker://technosophos/slack-notify
-        env:
-          #! This requires that an app is created in the slack api.
-
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_MESSAGE: "Hello Slack, sending from my github actions workflow"
