@@ -9,7 +9,7 @@ function App() {
         <p>Welcome to the lab!</p>
         <div>Sending a slack message with a new release</div>
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
+          Learn react
         </a>
       </header>
     </div>

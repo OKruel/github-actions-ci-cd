@@ -1,0 +1,12 @@
+name: Slack Notification on Issue Created
+on:
+  issues:
+    types: [opened]
+jobs:
+  slack-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: on issue opened send slack msg
+        #! Atention to the syntax to add an url to a link
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New issue created. <${{ github.event.issue.html_url }}| ${{ github.event.issue.title }}.>" }' ${{ secrets.SLACK_WEBHOOK }}
