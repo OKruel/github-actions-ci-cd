@@ -1,4 +1,4 @@
-name: Continuos Integration
+name: Continuos_Integration
 on:
   pull_request:
     branches: [develop, master]
