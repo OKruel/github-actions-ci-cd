@@ -1,6 +1,6 @@
 # Adding the badge about status of a worflow
 
-![](<https://github.com/OKruel/github-actions-ci-cd/workflows/Continuos\ Integration/badge.svg?branch=master&event=push>)
+![](https://github.com/OKruel/github-actions-ci-cd/workflows/Continuos_Integration/badge.svg?branch=master&event=push)
 
 # Getting Started with Create React App
 
