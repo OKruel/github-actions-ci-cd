@@ -11,8 +11,10 @@ jobs:
         # Notice the path ends in the folder that contains all necessary files to perfome the action
         uses: "./.github/actions/hello"
         # Gives an id for referencing this step in the next steps
+        id: "hello"
         with:
           who-to-greet: "Some person"
       #! Outputs of the private action
       - name: Output to the private action
-        run: "Time: ${{ steps.hell.outputs.time }}"
+        # To see the outputs options either dive into the code or print the step object first to check it.
+        run: "Time: ${{ steps.hello.outputs.time }}"
