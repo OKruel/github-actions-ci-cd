@@ -13,7 +13,11 @@ jobs:
         #! Input only accept strings
         with:
           token: ${{ secrets.USER_TOKEN }}
-          title: "My title"
+          # In a multiple commit push event
+          # This syntax gets the OLDEST COMMIT
+          title: ${{ github.event.commits[0].message }}
+          # This syntax gets the YOUNGEST COMMIT
+          #? title: ${{ github.event.commits[0].message }}
           body: "My body"
           assignees: "OKruel,OKruelNL"
 
@@ -34,4 +38,4 @@ jobs:
           echo "TIME: ${{ steps.hello.outputs.time }}"
           echo "JSVAR: $JSVAR"
           echo "ISSUE: ${{ steps.issues.outputs.issue }}"
-          echo "EVENT OBJECT: ${{ toJSON(github) }}"
+          echo "EVENT OBJ: ${{ toJSON(github.event) }}"

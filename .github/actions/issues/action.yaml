@@ -8,20 +8,15 @@ inputs:
     required: true
 
   title:
-    # In a multiple commit push event
-    # This syntax get the YOUNGEST commit
-    #? description: ${{ github.event.head_commit.message }}
-    # This syntax gets the OLDEST commit
-    description: "${{ github.event.commits[0].message }}"
-    # description: "My title"
+    description: "The title of the issue"
     required: true
 
   body:
-    description: "Issue Body"
+    description: "The body of the issue"
     required: false
 
   assignees:
-    description: "Issue Body"
+    description: "The assignees for that issue"
     required: false
 
 outputs:
