@@ -10,9 +10,10 @@ inputs:
   title:
     # In a multiple commit push event
     # This syntax get the YOUNGEST commit
-    description: ${{ github.event.head_commit.message }}
+    #? description: ${{ github.event.head_commit.message }}
     # This syntax gets the OLDEST commit
     #? description: "${{ github.event.commits[0].message }}"
+    description: "My title"
     required: true
 
   body:
