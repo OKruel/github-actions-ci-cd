@@ -10,7 +10,7 @@ const runWorkflow = async () => {
     const assignees = core.getInput("assignees");
 
     const octokit = github.getOctokit(token);
-
+    // Request to Github API to create the issue
     const response = await octokit.rest.issues.create({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,

@@ -1,4 +1,5 @@
 name: Private actions test
+#! ATTENTION - This event must be created NOT on PUSH but in case of the workflow to fail
 on: push
 jobs:
   Private_Actions_Test:
@@ -16,12 +17,12 @@ jobs:
           # In a multiple commit push event
           # This syntax gets the OLDEST COMMIT
           # QUERO O NOME DO BRANCH
-          title: ${{ github.event.commits[0].message }}
+          title: "Branch: ${{ github.ref_name }}"
           # This syntax gets the YOUNGEST COMMIT
           #? title: ${{ github.event.commits[0].message }}
           # QUERO MENSAGEM DO COMMIT
           # AUTOR DO BRANCH
-          body: "My body"
+          body: "Commit: ${{ github.event.commits[0].message }} - ${{ github.sha }}\n Author: ${{ github.event.pusher.name }} \n Workflow failed!"
           assignees: "OKruel,OKruelNL"
 
       #! Input to the private action
