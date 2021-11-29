@@ -42,4 +42,3 @@ jobs:
         run: |
           echo "TIME: ${{ steps.hello.outputs.time }}"
           echo "JSVAR: $JSVAR"
-          echo "ISSUE: ${{ steps.issues.outputs.issue }}"
