@@ -15,9 +15,12 @@ jobs:
           token: ${{ secrets.USER_TOKEN }}
           # In a multiple commit push event
           # This syntax gets the OLDEST COMMIT
+          # QUERO O NOME DO BRANCH
           title: ${{ github.event.commits[0].message }}
           # This syntax gets the YOUNGEST COMMIT
           #? title: ${{ github.event.commits[0].message }}
+          # QUERO MENSAGEM DO COMMIT
+          # AUTOR DO BRANCH
           body: "My body"
           assignees: "OKruel,OKruelNL"
 
@@ -34,8 +37,10 @@ jobs:
       #! Outputs of the private action
       - name: Output to the private action
         # To see the outputs options either dive into the code or print the step object first to check it.
+        env:
+          GITHUB: ${{ toJson(github) }}
         run: |
           echo "TIME: ${{ steps.hello.outputs.time }}"
           echo "JSVAR: $JSVAR"
           echo "ISSUE: ${{ steps.issues.outputs.issue }}"
-          echo "EVENT OBJ: ${{ toJSON(github.event) }}"
+          echo "${GITHUB}"
