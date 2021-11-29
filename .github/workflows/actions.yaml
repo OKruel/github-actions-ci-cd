@@ -1,0 +1,18 @@
+name: Private actions test
+on: push
+jobs:
+  Test_Private_Actions:
+    runs-on: ubuntu-latest
+    steps:
+      #! Copying the repo into the VM
+      - uses: actions/checkout@v2.4.0
+      #! Input to the private action
+      - name: "Input to the private action"
+        # Notice the path ends in the folder that contains all necessary files to perfome the action
+        uses: "./.github/actions/hello"
+        # Gives an id for referencing this step in the next steps
+        with:
+          who-to-greet: "Some person"
+      #! Outputs of the private action
+      - name: Output to the private action
+        run: "Time: ${{ steps.hell.outputs.time }}"

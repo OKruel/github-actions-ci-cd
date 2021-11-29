@@ -1,0 +1,32 @@
+# Default way to write actions is in Javascript.
+# To write actions in other languages a Docker container must be used with the runtime engine of the chosed language installed
+# Actions can also be of type public or private.
+# A public actions has its own repository
+# A private action is written inside the repo of an application.
+
+name: Hello World
+author: Olavo Kruel
+description: Some description
+inputs:
+  who-to-greet:
+    required: true
+    description: "Who to greet"
+    default: "My self"
+outputs:
+  time:
+    description: "The greeting time"
+# description of the runtime engine and the entry point of action.
+#! Github Actions offers libraries to receive the inputs, set the outputs, have access to the contexts objects and more. Therefor those libs must be required/instaled in the JS programm.
+# There is 2 main ways to achieve this result.
+# 1 - use yarn add to install the packages
+# 2 - use another lib that webpacks the third party libs and the JS files.
+# This lib is called ncc and is currently maintained by vercel (same company of next js).
+# To add this package as a dev dependency run -- yarn add -D @vercel/ncc --
+# This is a CLI tools that compiles the code with webpack and outputs it into a folder.
+# To use the cli run -- npx ncc build <path to the JS file> -o <path and name of the output file>
+# It will compile together the JS file and all the libs/modules the JS requires
+runs:
+  using: "node12"
+  #? main: "index.js"
+  # The main file to execute will be in the output of the NCC BUILD command explained above.
+  main: "dist/index.js"
