@@ -19,3 +19,4 @@ jobs:
         # To see the outputs options either dive into the code or print the step object first to check it.
         run: |
           echo "Time: ${{ steps.hello.outputs.time }}"
+          echo "JSVAR: $JSVAR"
