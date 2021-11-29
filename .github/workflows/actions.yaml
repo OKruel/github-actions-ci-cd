@@ -37,10 +37,8 @@ jobs:
       #! Outputs of the private action
       - name: Output to the private action
         # To see the outputs options either dive into the code or print the step object first to check it.
-        env:
-          GITHUB: ${{ toJson(github) }}
         run: |
           echo "TIME: ${{ steps.hello.outputs.time }}"
           echo "JSVAR: $JSVAR"
-          echo "ISSUE: ${{ steps.issues.outputs.issue }}"
-          echo "${GITHUB}"
+          # echo "ISSUE: ${{ steps.issues.outputs.issue }}"
+          echo "GITHUB: ${{ toJson(github) }}"
