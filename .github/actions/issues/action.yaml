@@ -1,0 +1,28 @@
+name: Create Github issue
+author: Olavo Kruel
+description: Opens a github issue with given inputs.
+
+inputs:
+  token:
+    description: "Github API access token"
+    required: true
+
+  title:
+    description: "Issue Title"
+    required: true
+
+  body:
+    description: "Issue Body"
+    required: false
+
+  assignees:
+    description: "Issue Body"
+    required: false
+
+outputs:
+  issue:
+    description: "The issue object as a JSON string"
+
+runs:
+  using: "node12"
+  main: "./.github/actions/issues/dist/index.js"
