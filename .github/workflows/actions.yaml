@@ -1,7 +1,7 @@
 name: Private actions test
 on: push
 jobs:
-  Test_Private_Action_Hello:
+  Private_Actions_Test:
     runs-on: ubuntu-latest
     steps:
       #! Copying the repo into the VM

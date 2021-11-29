@@ -25,4 +25,4 @@ outputs:
 
 runs:
   using: "node12"
-  main: ".github/actions/issues/dist/index.js"
+  main: "dist/index.js"
