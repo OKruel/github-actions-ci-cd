@@ -34,4 +34,4 @@ jobs:
           echo "TIME: ${{ steps.hello.outputs.time }}"
           echo "JSVAR: $JSVAR"
           echo "ISSUE: ${{ steps.issues.outputs.issue }}"
-          echo "EVENT OBJECT: ${{ toJSON(github.event) }}"
+          echo "EVENT OBJECT: ${{ toJSON(github) }}"
