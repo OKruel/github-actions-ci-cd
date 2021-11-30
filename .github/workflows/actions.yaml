@@ -55,4 +55,4 @@ jobs:
           echo "HELLO ACTION -- JSVAR: $JSVAR"
           echo "HELLO ACTION -- TIME: ${{ steps.hello.outputs.time }}"
           echo "HELLO-DOCKER ACTION -- TIME: ${{ steps.hello-docker.outputs.time }}"
-          echo "ISSUE ACTION -- ISSUE: ${{ steps.issues-action.outputs.issue }}"
+          echo "HELLO-DOCKER ACTION -- SHELL: ${SHELL}"
