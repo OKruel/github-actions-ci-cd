@@ -19,7 +19,7 @@ const runWorkflow = async () => {
       assignees: assignees ? assignees.split(",") : undefined,
     });
 
-    core.setOutput("issue", JSON.stringify(response.data, null, "\t"));
+    core.setOutput("issue", JSON.stringify(response.data));
   } catch (error) {
     core.setFailed(error.message);
   }

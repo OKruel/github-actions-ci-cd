@@ -52,7 +52,7 @@ jobs:
       - name: Output to the private action
         # To see the outputs options either dive into the code or print the step object first to check it.
         run: |
-          echo "ISSUES: ${{ steps.issues.outputs.issue }}"
-          echo "Hello TIME: ${{ steps.hello.outputs.time }}"
-          echo "exported from entrypoint.sh ---- $HELLO"
-          echo "JSVAR: $JSVAR"
+          echo "HELLO ACTION -- JSVAR: $JSVAR"
+          echo "HELLO ACTION --- Hello TIME: ${{ steps.hello.outputs.time }}"
+          echo "ISSUES ACTION --- ISSUES: ${{ steps.issues.outputs.issue }}"
+          echo "HELLO-DOCKER ACTION --- TIME: ${{ steps.hello-docker.outputs.time }}"
