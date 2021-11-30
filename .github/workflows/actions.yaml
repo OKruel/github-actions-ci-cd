@@ -37,6 +37,8 @@ jobs:
           who-to-greet: "Some person"
 
       #! HELLO-DOCKER ACTION
+      - run: chmod +x ./.github/actions/hello-docker/script.sh
+
       - name: "Using private HELLO-DOCKER action"
         # Notice the path ends in the folder that contains all necessary files to perfome the action
         uses: "./.github/actions/hello-docker"
