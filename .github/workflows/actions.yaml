@@ -54,6 +54,5 @@ jobs:
         run: |
           echo "ISSUES: ${{ steps.issues.outputs.issue }}"
           echo "Hello TIME: ${{ steps.hello.outputs.time }}"
-          echo "Hello-Docker TIME: ${{ steps.hello-docker.outputs.time }}"
           echo "exported from entrypoint.sh ---- $HELLO"
           echo "JSVAR: $JSVAR"

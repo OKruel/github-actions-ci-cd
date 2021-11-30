@@ -17,4 +17,5 @@ echo "some log"
 echo "some log"
 echo "::endgroup::"
 
-echo "::set-env name=HELLO::hello"
+# The `set-env` command is disabled. Please upgrade to using Environment Files or opt into unsecure command execution by setting the `ACTIONS_ALLOW_UNSECURE_COMMANDS` environment variable to `true`. For more information see: https://github.blog/changelog/2020-10-01-github-actions-deprecating-set-env-and-add-path-commands/
+# echo "::set-env name=HELLO::hello"
