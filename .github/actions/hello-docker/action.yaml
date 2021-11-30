@@ -1,0 +1,28 @@
+#! Action written in docker container
+name: Hello World Docker Action
+author: Olavo Kruel
+description: Console Hello World from within a Docker container
+
+inputs:
+  who-to-greet:
+    required: true
+    description: "Who to greet"
+    default: "My self"
+
+outputs:
+  time:
+    description: "The greeting time"
+
+runs:
+  using: "docker"
+  # The image can be from Docker Hub or from a local docker file.
+  #? image: "docker://<package name>:<tag>"
+  image: "Dockerfile"
+  # Entrypoint not necessary because it is already in the Dockerfile
+  #? entrypoint:
+  # As the ENTRYPOINT alteady exists in the Docker file, we need to pass arguments that we receive here as inputs. This args keyword will work as the CMD command of the Dockerfile
+  args:
+    - ${{ inputs.who-to-greet }}
+  # Here we can also pass environment variables that would be available inside the container.
+  #? env:
+  #?   somevariable: 'somevalue'
