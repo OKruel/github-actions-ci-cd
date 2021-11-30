@@ -11,7 +11,7 @@ jobs:
       #! PRIVATE ISSUE ACTION
       - name: Private Issues Action
         uses: "./.github/actions/issues"
-        id: "issues"
+        id: "issues-action"
         #! Input only accept strings
         with:
           token: ${{ secrets.USER_TOKEN }}
@@ -53,5 +53,6 @@ jobs:
         # To see the outputs options either dive into the code or print the step object first to check it.
         run: |
           echo "HELLO ACTION -- JSVAR: $JSVAR"
-          echo "HELLO ACTION --- Hello TIME: ${{ steps.hello.outputs.time }}"
-          echo "HELLO-DOCKER ACTION --- TIME: ${{ steps.hello-docker.outputs.time }}"
+          echo "HELLO ACTION -- TIME: ${{ steps.hello.outputs.time }}"
+          echo "HELLO-DOCKER ACTION -- TIME: ${{ steps.hello-docker.outputs.time }}"
+          echo "ISSUE ACTION -- ISSUE: ${{ steps.issues-action.outputs.issue }}"
